@@ -270,5 +270,6 @@ if st.sidebar.button("Lihat Media Hasil Diskusi"):
 
 st.subheader("Ruang Diskusi")
 st.markdown('''
-                <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:1000px"></iframe>
+                <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:2000px"></iframe>
             ''',unsafe_allow_html=True)
+
