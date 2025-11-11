@@ -181,7 +181,7 @@ Next i
     with st.expander("Contoh Dasar"):
         st.write("Contoh Dasar")
         st.code('''
-            Sub LoopAngka()
+Sub LoopAngka()
     Dim i As Integer
     For i = 1 To 5
         MsgBox "Angka ke-" & i
@@ -194,7 +194,8 @@ End Sub
 - For i = 1 To 5 → dimulai dari 1 hingga 5.
 ''')
     st.code('''
-    On Error Resume Next
+Sub pecahan()
+On Error Resume Next
 Dim lembar As Worksheet
 Dim gambar As Shape
 
@@ -272,4 +273,5 @@ st.subheader("Ruang Diskusi")
 st.markdown('''
                 <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:2000px"></iframe>
             ''',unsafe_allow_html=True)
+
 
