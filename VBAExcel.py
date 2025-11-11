@@ -169,8 +169,8 @@ def materi4():
 👉 Struktur dasarnya di VBA:
         ''')
         st.code('''
-For i = nilai_awal To nilai_akhir [Step nilai_langkah]
-'blok perintah yang diulang
+            For i = nilai_awal To nilai_akhir [Step nilai_langkah]
+    'blok perintah yang diulang
 Next i
         ''')
         st.markdown('''
@@ -181,7 +181,7 @@ Next i
     with st.expander("Contoh Dasar"):
         st.write("Contoh Dasar")
         st.code('''
-Sub LoopAngka()
+            Sub LoopAngka()
     Dim i As Integer
     For i = 1 To 5
         MsgBox "Angka ke-" & i
@@ -271,8 +271,5 @@ if st.sidebar.button("Lihat Media Hasil Diskusi"):
 
 st.subheader("Ruang Diskusi")
 st.markdown('''
-                <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:2000px"></iframe>
+                <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:3000px"></iframe>
             ''',unsafe_allow_html=True)
-
-
-
