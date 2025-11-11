@@ -1,7 +1,7 @@
 import streamlit as st
 
 st.set_page_config(layout="wide")
-st.header("Oke")
+
 if 'kondisi' not in st.session_state:
     st.session_state['kondisi']={'kondisi1':True,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
@@ -273,4 +273,5 @@ st.subheader("Ruang Diskusi")
 st.markdown('''
                 <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:3000px"></iframe>
             ''',unsafe_allow_html=True)
+
 
