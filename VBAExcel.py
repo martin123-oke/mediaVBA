@@ -6,7 +6,8 @@ if 'kondisi' not in st.session_state:
     st.session_state['kondisi']={'kondisi1':True,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False,
-                                 'kondisi7':False, 'kondisi8':False}
+                                 'kondisi7':False, 'kondisi8':False,
+                                 'kondisi9':False}
 
 def kover():
     st.markdown('''
@@ -484,7 +485,52 @@ MsgBox "Gambar dan perhitungan selesai. Luas = " & luas, vbInformation
 End Sub
     ''')
     
-
+def materi8():
+    st.markdown('<div style="font-family:Arial; font-size:30px; font-weight:bold">Deret Aritmatika</div>',unsafe_allow_html=True)
+    st.code('''
+Sub VisualisasiDeretAritmatika()
+Dim a As Double, d As Double, n As Integer
+Dim i As Integer
+Dim nilai As Double
+Dim tinggi As Double
+Dim kiri As Double
+Dim shp As Shape
+'Input nilai
+a = Val(InputBox("Masukkan suku pertama (a):", "Input A"))
+d = Val(InputBox("Masukkan beda (d):", "Input d"))
+n = Val(InputBox("Masukkan banyak suku (n):", "Input n"))
+If n <= 0 Then
+MsgBox "Jumlah suku harus lebih dari 0", vbExclamation
+Exit Sub
+End If
+'Hapus shape lama
+Dim s As Shape
+For Each s In ActiveSheet.Shapes
+If Left(s.Name, 5) = "Batang" Or Left(s.Name, 5) = "Label" Then
+s.Delete
+End If
+Next s
+kiri = 50 'posisi awal kiri
+'Menggambar batang suku deret
+For i = 1 To n
+nilai = a + (i - 1) * d
+tinggi = nilai * 10 'skala visual
+'Gambar batang
+Set shp = ActiveSheet.Shapes.AddShape(msoShapeRectangle, kiri, 300 - tinggi, 30, tinggi)
+shp.Name = "Batang" & i
+shp.Fill.ForeColor.RGB = RGB(135, 206, 250)
+shp.Line.ForeColor.RGB = RGB(0, 0, 139)
+'Label nilai
+Set shp = ActiveSheet.Shapes.AddLabel(msoTextOrientationHorizontal, kiri, 305, 30, 20)
+shp.TextFrame2.TextRange.Text = CStr(nilai)
+shp.Name = "Label" & i
+shp.TextFrame2.TextRange.Font.Size = 10
+shp.TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignCenter
+kiri = kiri + 40 'geser posisi ke kanan
+Next i
+MsgBox "Visualisasi deret selesai!", vbInformation
+End Sub
+    ''')
 #==================================================
 
 if st.session_state.kondisi['kondisi1']:
@@ -503,63 +549,70 @@ if st.session_state.kondisi['kondisi7']:
     materi6()
 if st.session_state.kondisi['kondisi8']:
     materi7()
+if st.session_state.kondisi['kondisi9']:
+    materi8()
 #==================================================
 
 if st.sidebar.button('Beranda'):
     st.session_state['kondisi']={'kondisi1':True,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False}
+                                 'kondisi8':False, 'kondisi9':False}
     st.rerun()
     
 if st.sidebar.button('pengantar'):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':True,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                'kondisi8':False}
+                                 'kondisi8':False, 'kondisi9':False}
     st.rerun()
 
 if st.sidebar.button("Class VBA for Excel"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':True, 'kondisi7':False,
-                                 'kondisi8':False}
+                                 'kondisi8':False, 'kondisi9':False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button("Luas Persegi Panjang AI"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':True}
+                                 'kondisi8':True, 'kondisi9':False}
+    st.rerun()
+if st.sidebar.button("Deret Aritmatika"):
+    st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
+                                 'kondisi3':False,'kondisi4':False,
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False, 'kondisi9':True}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button("Kalkulator Sederhana"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':True,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False}
+                                 'kondisi8':False, 'kondisi9':False}
     st.rerun()
 if st.sidebar.button("Pecahan Sederhana"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':True, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False}
+                                 'kondisi8':False, 'kondisi9':False}
     st.rerun()
 if st.sidebar.button("Dimensi 3"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':True,
-                                 'kondisi8':False}
+                                 'kondisi8':False, 'kondisi9':False}
     st.rerun()
 if st.sidebar.button("Lihat Media Hasil Diskusi"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':True,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False}
+                                 'kondisi8':False, 'kondisi9':False}
     st.rerun()
 
 st.subheader("Ruang Diskusi")
 st.markdown('''
                 <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:3000px"></iframe>
             ''',unsafe_allow_html=True)
-
