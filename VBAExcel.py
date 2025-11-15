@@ -515,7 +515,8 @@ if st.sidebar.button('Beranda'):
 if st.sidebar.button('pengantar'):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':True,
                                  'kondisi3':False,'kondisi4':False,
-                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False}
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                'kondisi8':False}
     st.rerun()
 
 if st.sidebar.button("Class VBA for Excel"):
@@ -561,3 +562,4 @@ st.subheader("Ruang Diskusi")
 st.markdown('''
                 <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:3000px"></iframe>
             ''',unsafe_allow_html=True)
+
