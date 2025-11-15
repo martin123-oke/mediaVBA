@@ -5,7 +5,8 @@ st.set_page_config(layout="wide")
 if 'kondisi' not in st.session_state:
     st.session_state['kondisi']={'kondisi1':True,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
-                                 'kondisi5':False}
+                                 'kondisi5':False, 'kondisi6':False,
+                                 'kondisi7':False, 'kondisi8':False}
 
 def kover():
     st.markdown('''
@@ -230,6 +231,261 @@ Next i
 End Sub
     ''')
 
+def materi5():
+    st.markdown('<div>Class VBA for Excel</div>',unsafe_allow_html=True)
+    st.markdown('''
+                <iframe src="https://martin123-oke.github.io/PengVBAExcel/oopvba.html" style="width:100%; height:1000px"></iframe>
+                ''',unsafe_allow_html=True)
+
+def materi6():
+    st.markdown('<div style="font-family:Arial; font-size:30px; font-weight:bold">Dimensi 2 ke Dimensi 3</div>',unsafe_allow_html=True)
+    st.markdown('''
+                    <iframe src="https://res.cloudinary.com/ikip-siliwangi/image/upload/v1763183847/dimensi3_jof8fy.png" style="width:100%; height:500px"></iframe>
+                    ''',unsafe_allow_html=True)
+    st.code('''
+Sub sumbu()
+On Error Resume Next
+Dim lembar As Worksheet
+Dim garis1 As Shape
+Dim garis2 As Shape
+Dim garis3 As Shape
+Dim garis4 As Shape
+Dim kot1 As Shape
+Dim himpunan1(0 To 4, 0 To 1) As Single
+Dim kot2 As Shape
+Dim himpunan2(0 To 4, 0 To 1) As Single
+Dim kot3 As Shape
+Dim himpunan3(0 To 4, 0 To 1) As Single
+Dim kot4 As Shape
+Dim himpunan4(0 To 4, 0 To 1) As Single
+Dim ling As Shape
+Dim himpunan5(0 To 360, 0 To 1) As Single
+Set lembar = Worksheets(1)
+lembar.Shapes("koordinat1").Delete
+lembar.Shapes("koordinat2").Delete
+lembar.Shapes("koordinat3").Delete
+lembar.Shapes("koordinat4").Delete
+lembar.Shapes("kotak1").Delete
+lembar.Shapes("kotak2").Delete
+lembar.Shapes("kotak3").Delete
+lembar.Shapes("kotak4").Delete
+For p = 1 To 1000
+    lembar.Shapes("lingkaran" & p).Delete
+Next p
+a = Range("B2")
+b = Range("B3")
+c = Range("B4")
+Pi = 4 * Atn(1)
+d = Range("B6")
+e = lembar.Shapes("titik").Left + lembar.Shapes("titik").Width / 2
+f = lembar.Shapes("titik").Top + lembar.Shapes("titik").Height / 2
+g = Range("B9")
+h = Range("B10")
+i = Range("B11")
+x1 = d * (-Sin(Pi * a / 180) * Sin(Pi * b / 180) * Cos(Pi * c / 180) + Sin(c * Pi / 180) * Cos(a * Pi / 180))
+y1 = -d * (Sin(b * Pi / 180) * Cos(a * Pi / 180) * Cos(c * Pi / 180) + Sin(a * Pi / 180) * Sin(c * Pi / 180))
+x2 = d * (Sin(a * Pi / 180) * Sin(b * Pi / 180) + Cos(a * Pi / 180) * Cos(c * Pi / 180))
+y2 = -d * (-Sin(b * Pi / 180) * Sin(c * Pi / 180) * Cos(a * Pi / 180) + Sin(a * Pi / 180) * Cos(c * Pi / 180))
+x3 = d * (-Sin(a * Pi / 180) * Cos(b * Pi / 180))
+y3 = -d * Cos(a * Pi / 180) * Cos(b * Pi / 180)
+Set garis1 = lembar.Shapes.AddLine(e, f, e + x1, f + y1)
+garis1.Name = "koordinat1"
+lembar.Shapes("koordinat1").Line.ForeColor.RGB = vbRed
+lembar.Shapes("koordinat1").Line.BeginArrowheadStyle = msoArrowheadOval
+lembar.Shapes("koordinat1").Line.EndArrowheadStyle = msoArrowheadTriangle
+lembar.Shapes("koordinat1").Line.Weight = 2
+Set garis2 = lembar.Shapes.AddLine(e, f, e + x2, f + y2)
+garis2.Name = "koordinat2"
+lembar.Shapes("koordinat2").Line.ForeColor.RGB = vbRed
+lembar.Shapes("koordinat2").Line.BeginArrowheadStyle = msoArrowheadOval
+lembar.Shapes("koordinat2").Line.EndArrowheadStyle = msoArrowheadTriangle
+lembar.Shapes("koordinat2").Line.Weight = 2
+Set garis3 = lembar.Shapes.AddLine(e, f, e + x3, f + y3)
+garis3.Name = "koordinat3"
+lembar.Shapes("koordinat3").Line.ForeColor.RGB = vbRed
+lembar.Shapes("koordinat3").Line.BeginArrowheadStyle = msoArrowheadOval
+lembar.Shapes("koordinat3").Line.EndArrowheadStyle = msoArrowheadTriangle
+lembar.Shapes("koordinat3").Line.Weight = 2
+Set garis4 = lembar.Shapes.AddLine(e + g * x1 / d + h * x2 / d, f + g * y1 / d + h * y2 / d, e + g * x1 / d + h * x2 / d + i * x3 / d, f + g * y1 / d + h * y2 / d + i * y3 / d)
+garis4.Name = "koordinat4"
+lembar.Shapes("koordinat4").Line.ForeColor.RGB = vbBlue
+lembar.Shapes("koordinat4").Line.Weight = 2
+himpunan1(0, 0) = e
+himpunan1(0, 1) = f
+himpunan1(1, 0) = e + g * x1 / d
+himpunan1(1, 1) = f + g * y1 / d
+himpunan1(2, 0) = e + g * x1 / d + h * x2 / d
+himpunan1(2, 1) = f + g * y1 / d + h * y2 / d
+himpunan1(3, 0) = e + h * x2 / d
+himpunan1(3, 1) = f + h * y2 / d
+himpunan1(4, 0) = e
+himpunan1(4, 1) = f
+Set kot1 = lembar.Shapes.AddPolyline(himpunan1)
+kot1.Name = "kotak1"
+lembar.Shapes("kotak1").Fill.Transparency = 1
+lembar.Shapes("kotak1").Line.ForeColor.RGB = vbBlue
+lembar.Shapes("kotak1").Line.Weight = 2
+himpunan2(0, 0) = e
+himpunan2(0, 1) = f
+himpunan2(1, 0) = e + g * x1 / d
+himpunan2(1, 1) = f + g * y1 / d
+himpunan2(2, 0) = e + g * x1 / d + i * x3 / d
+himpunan2(2, 1) = f + g * y1 / d + i * y3 / d
+himpunan2(3, 0) = e + i * x3 / d
+himpunan2(3, 1) = f + i * y3 / d
+himpunan2(4, 0) = e
+himpunan2(4, 1) = f
+Set kot2 = lembar.Shapes.AddPolyline(himpunan2)
+kot2.Name = "kotak2"
+lembar.Shapes("kotak2").Fill.Transparency = 1
+lembar.Shapes("kotak2").Line.ForeColor.RGB = vbBlue
+lembar.Shapes("kotak2").Line.Weight = 2
+himpunan3(0, 0) = e
+himpunan3(0, 1) = f
+himpunan3(1, 0) = e + h * x2 / d
+himpunan3(1, 1) = f + h * y2 / d
+himpunan3(2, 0) = e + h * x2 / d + i * x3 / d
+himpunan3(2, 1) = f + h * y2 / d + i * y3 / d
+himpunan3(3, 0) = e + i * x3 / d
+himpunan3(3, 1) = f + i * y3 / d
+himpunan3(4, 0) = e
+himpunan3(4, 1) = f
+Set kot3 = lembar.Shapes.AddPolyline(himpunan3)
+kot3.Name = "kotak3"
+lembar.Shapes("kotak3").Fill.Transparency = 1
+lembar.Shapes("kotak3").Line.ForeColor.RGB = vbBlue
+lembar.Shapes("kotak3").Line.Weight = 2
+himpunan4(0, 0) = e + i * x3 / d
+himpunan4(0, 1) = f + i * y3 / d
+himpunan4(1, 0) = e + h * x2 / d + i * x3 / d
+himpunan4(1, 1) = f + h * y2 / d + i * y3 / d
+himpunan4(2, 0) = e + h * x2 / d + i * x3 / d + g * x1 / d
+himpunan4(2, 1) = f + h * y2 / d + i * y3 / d + g * y1 / d
+himpunan4(3, 0) = e + i * x3 / d + g * x1 / d
+himpunan4(3, 1) = f + i * y3 / d + g * y1 / d
+himpunan4(4, 0) = e + i * x3 / d
+himpunan4(4, 1) = f + i * y3 / d
+Set kot4 = lembar.Shapes.AddPolyline(himpunan4)
+kot4.Name = "kotak4"
+lembar.Shapes("kotak4").Fill.Transparency = 1
+lembar.Shapes("kotak4").Line.ForeColor.RGB = vbBlue
+lembar.Shapes("kotak4").Line.Weight = 2
+Radius = lembar.Range("B14")
+tinggi = lembar.Range("B15")
+n = 0
+For k = 0 To 2 * Radius
+    m = Sqr((Radius) ^ 2 - (Radius - tinggi * k) ^ 2)
+    tx = e + g * x1 / (2 * d) + h * x2 / (2 * d)
+    ty = f + g * y1 / (2 * d) + h * y2 / (2 * d)
+    For l = 0 To 360
+        n = n + 1
+        himpunan5(l, 0) = tx + m * ((x1 + x2) / d) * Cos(l * Pi / 180) + k * tinggi * x3 / d
+        himpunan5(l, 1) = ty + m * ((y1 + y2) / d) * Sin(l * Pi / 180) + k * tinggi * y3 / d
+    Next l
+    Set ling = lembar.Shapes.AddPolyline(himpunan5)
+    ling.Name = "lingkaran" & k
+    lembar.Shapes("lingkaran" & k).Line.ForeColor.RGB = RGB(0, 125, 0)
+    lembar.Shapes("lingkaran" & k).Fill.Transparency = 1
+    lembar.Shapes("lingkaran" & k).Line.Weight = 2
+Next k
+End Sub
+
+Sub koordinat_x1()
+Range("B2") = Range("B2") + 10
+Call sumbu
+End Sub
+
+Sub koordinat_x2()
+Range("B2") = Range("B2") - 10
+Call sumbu
+End Sub
+
+Sub koordinat_y1()
+Range("B3") = Range("B3") + 10
+Call sumbu
+End Sub
+
+Sub koordinat_y2()
+Range("B3") = Range("B3") - 10
+Call sumbu
+End Sub
+
+Sub koordinat_z1()
+Range("B4") = Range("B4") + 10
+Call sumbu
+End Sub
+
+Sub koordinat_z2()
+Range("B4") = Range("B4") - 10
+Call sumbu
+End Sub
+
+Sub panjang1()
+Range("B6") = Range("B6") + 10
+Call sumbu
+End Sub
+Sub panjang2()
+Range("B6") = Range("B6") - 10
+Call sumbu
+End Sub
+    ''')
+
+def materi7():
+    st.markdown('<div style="font-family:Arial; font-size:30px; font-weight:bold">Luas Persegi Panjang</div>',unsafe_allow_html=True)
+    st.code('''
+' Module: mLuasPersegiPanjang
+Sub GambarPersegiPanjang_InputBox()
+Dim p As Double, l As Double
+Dim luas As Double
+Dim shp As Shape
+Dim ws As Worksheet
+Dim widthPixels As Double, heightPixels As Double
+Dim scaleFactor As Double
+Set ws = ThisWorkbook.ActiveSheet
+' 1. Input dari user
+p = Val(InputBox("Masukkan panjang (contoh: 8):", "Input Panjang"))
+l = Val(InputBox("Masukkan lebar (contoh: 5):", "Input Lebar"))
+If p <= 0 Or l <= 0 Then
+MsgBox "Panjang dan lebar harus positif.", vbExclamation
+Exit Sub
+End If
+' 2. Hitung luas
+luas = p * l
+' 3. Hapus shape lama (jika ada dengan nama tertentu)
+On Error Resume Next
+ws.Shapes("RectLuas").Delete
+On Error GoTo 0
+' 4. Skala: map ukuran satuan (misal 1 unit = 20 pixel) — sesuaikan agar muat layar
+scaleFactor = 20 ' ubah sesuai kebutuhan
+widthPixels = p * scaleFactor
+heightPixels = l * scaleFactor
+' 5. Pastikan tidak terlalu besar untuk sheet: batasi maksimal
+If widthPixels > 800 Then widthPixels = 800
+If heightPixels > 500 Then heightPixels = 500
+' 6. Tambah shape => left, top, width, height (pixel)
+Set shp = ws.Shapes.AddShape(msoShapeRectangle, 50, 50, widthPixels, heightPixels)
+shp.Name = "RectLuas"
+shp.Fill.ForeColor.RGB = RGB(198, 239, 206) ' warna latar (opsional)
+shp.Line.Weight = 2
+shp.Line.ForeColor.RGB = RGB(0, 97, 0)
+' 7. Tambah teks di dalam shape: p × l = luas
+shp.TextFrame2.TextRange.Text = "p=" & p & " l=" & l & vbCrLf & "L=" & luas
+shp.TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignCenter
+shp.TextFrame2.VerticalAnchor = msoAnchorMiddle
+shp.TextFrame2.TextRange.Font.Size = 12
+' 8. Tulis juga ke sheet (opsional)
+ws.Range("B2").Value = "Panjang"
+ws.Range("C2").Value = p
+ws.Range("B3").Value = "Lebar"
+ws.Range("C3").Value = l
+ws.Range("B4").Value = "Luas"
+ws.Range("C4").Value = luas
+MsgBox "Gambar dan perhitungan selesai. Luas = " & luas, vbInformation
+End Sub
+    ''')
+    
+
+#==================================================
 
 if st.session_state.kondisi['kondisi1']:
     kover()
@@ -241,37 +497,67 @@ if st.session_state.kondisi['kondisi4']:
     materi3()
 if st.session_state.kondisi['kondisi5']:
     materi4()
+if st.session_state.kondisi['kondisi6']:
+    materi5()
+if st.session_state.kondisi['kondisi7']:
+    materi6()
+if st.session_state.kondisi['kondisi8']:
+    materi7()
+#==================================================
 
 if st.sidebar.button('Beranda'):
     st.session_state['kondisi']={'kondisi1':True,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
-                                 'kondisi5':False}
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False}
     st.rerun()
     
 if st.sidebar.button('pengantar'):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':True,
                                  'kondisi3':False,'kondisi4':False,
-                                 'kondisi5':False}
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False}
     st.rerun()
+
+if st.sidebar.button("Class VBA for Excel"):
+    st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
+                                 'kondisi3':False,'kondisi4':False,
+                                 'kondisi5':False, 'kondisi6':True, 'kondisi7':False,
+                                 'kondisi8':False}
+    st.rerun()
+st.sidebar.markdown("---")
+if st.sidebar.button("Luas Persegi Panjang AI"):
+    st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
+                                 'kondisi3':False,'kondisi4':False,
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':True}
+    st.rerun()
+st.sidebar.markdown("---")
 if st.sidebar.button("Kalkulator Sederhana"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':True,'kondisi4':False,
-                                 'kondisi5':False}
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False}
     st.rerun()
 if st.sidebar.button("Pecahan Sederhana"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
-                                 'kondisi5':True}
+                                 'kondisi5':True, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False}
+    st.rerun()
+if st.sidebar.button("Dimensi 3"):
+    st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
+                                 'kondisi3':False,'kondisi4':False,
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':True,
+                                 'kondisi8':False}
     st.rerun()
 if st.sidebar.button("Lihat Media Hasil Diskusi"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':True,
-                                 'kondisi5':False}
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False}
     st.rerun()
 
 st.subheader("Ruang Diskusi")
 st.markdown('''
                 <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:3000px"></iframe>
             ''',unsafe_allow_html=True)
-
-
