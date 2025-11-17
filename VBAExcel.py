@@ -7,7 +7,7 @@ if 'kondisi' not in st.session_state:
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False,
                                  'kondisi7':False, 'kondisi8':False,
-                                 'kondisi9':False}
+                                 'kondisi9':False, 'kondisi10': False}
 
 def kover():
     st.markdown('''
@@ -531,6 +531,247 @@ Next i
 MsgBox "Visualisasi deret selesai!", vbInformation
 End Sub
     ''')
+
+def materi9():
+    st.markdown('<div style="font-family:Arial; font-size:30px; font-weight:bold">Perbandingan Senilai dan Terbalik</div>',unsafe_allow_html=True)
+    st.code('''
+Sub BuatMediaPembelajaran()
+    Dim ws As Worksheet
+    Dim shp As Shape
+    Dim x As Integer, y As Integer
+    
+    ' Buat sheet baru
+    Set ws = ThisWorkbook.Sheets.Add
+    ws.Name = "Perbandingan_" & Format(Now, "hhmmss")
+    
+    ' Atur lebar kolom
+    ws.Columns("A:K").ColumnWidth = 12
+    ws.Rows("1:50").RowHeight = 20
+    
+    ' ===== JUDUL UTAMA =====
+    Set shp = ws.Shapes.AddShape(msoShapeRoundedRectangle, 50, 10, 600, 50)
+    With shp
+        .Fill.ForeColor.RGB = RGB(0, 102, 204)
+        .Line.Visible = msoFalse
+        .TextFrame2.TextRange.Text = "MEDIA PEMBELAJARAN PERBANDINGAN"
+        .TextFrame2.TextRange.Font.Size = 18
+        .TextFrame2.TextRange.Font.Bold = msoTrue
+        .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = RGB(255, 255, 255)
+        .TextFrame2.VerticalAnchor = msoAnchorMiddle
+        .TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignCenter
+    End With
+    
+    ' ===== BAGIAN 1: PERBANDINGAN SENILAI =====
+    y = 80
+    
+    ' Judul Perbandingan Senilai
+    Set shp = ws.Shapes.AddShape(msoShapeRoundedRectangle, 50, y, 300, 35)
+    With shp
+        .Fill.ForeColor.RGB = RGB(46, 204, 113)
+        .Line.Visible = msoFalse
+        .TextFrame2.TextRange.Text = "1. PERBANDINGAN SENILAI"
+        .TextFrame2.TextRange.Font.Size = 14
+        .TextFrame2.TextRange.Font.Bold = msoTrue
+        .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = RGB(255, 255, 255)
+        .TextFrame2.VerticalAnchor = msoAnchorMiddle
+    End With
+    
+    ' Penjelasan Perbandingan Senilai
+    y = y + 45
+    Set shp = ws.Shapes.AddShape(msoShapeRectangle, 50, y, 600, 80)
+    With shp
+        .Fill.ForeColor.RGB = RGB(232, 245, 233)
+        .Line.Weight = 2
+        .Line.ForeColor.RGB = RGB(46, 204, 113)
+        .TextFrame2.TextRange.Text = "Definisi: Dua besaran dikatakan senilai jika perbandingannya tetap." & vbLf & vbLf & _
+                                     "Rumus: A₁/B₁ = A₂/B₂  atau  A₁ × B₂ = A₂ × B₁" & vbLf & vbLf & _
+                                     "Contoh: Semakin banyak barang, semakin mahal harganya"
+        .TextFrame2.TextRange.Font.Size = 11
+        .TextFrame2.TextRange.ParagraphFormat.LeftIndent = 10
+        .TextFrame2.VerticalAnchor = msoAnchorMiddle
+    End With
+    
+    ' Contoh Soal Perbandingan Senilai
+    y = y + 90
+    Set shp = ws.Shapes.AddShape(msoShapeRoundedRectangle, 50, y, 600, 100)
+    With shp
+        .Fill.ForeColor.RGB = RGB(255, 249, 196)
+        .Line.Weight = 2
+        .Line.ForeColor.RGB = RGB(255, 193, 7)
+        .TextFrame2.TextRange.Text = "CONTOH SOAL:" & vbLf & _
+                                     "Jika 3 kg apel harganya Rp 45.000, berapa harga 7 kg apel?" & vbLf & vbLf & _
+                                     "Penyelesaian:" & vbLf & _
+                                     "3 kg → Rp 45.000" & vbLf & _
+                                     "7 kg → (7 × 45.000) / 3 = Rp 105.000"
+        .TextFrame2.TextRange.Font.Size = 11
+        .TextFrame2.TextRange.ParagraphFormat.LeftIndent = 10
+        .TextFrame2.VerticalAnchor = msoAnchorMiddle
+    End With
+    
+    ' Tombol Latihan Senilai
+    y = y + 110
+    Set shp = ws.Shapes.AddShape(msoShapeRoundedRectangle, 50, y, 200, 40)
+    With shp
+        .Name = "BtnLatihanSenilai"
+        .Fill.ForeColor.RGB = RGB(46, 204, 113)
+        .Line.Visible = msoFalse
+        .TextFrame2.TextRange.Text = "LATIHAN SENILAI"
+        .TextFrame2.TextRange.Font.Size = 12
+        .TextFrame2.TextRange.Font.Bold = msoTrue
+        .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = RGB(255, 255, 255)
+        .TextFrame2.VerticalAnchor = msoAnchorMiddle
+        .TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignCenter
+        .OnAction = "LatihanSenilai"
+    End With
+    
+    ' ===== BAGIAN 2: PERBANDINGAN TERBALIK =====
+    y = y + 60
+    
+    ' Judul Perbandingan Terbalik
+    Set shp = ws.Shapes.AddShape(msoShapeRoundedRectangle, 50, y, 300, 35)
+    With shp
+        .Fill.ForeColor.RGB = RGB(231, 76, 60)
+        .Line.Visible = msoFalse
+        .TextFrame2.TextRange.Text = "2. PERBANDINGAN TERBALIK"
+        .TextFrame2.TextRange.Font.Size = 14
+        .TextFrame2.TextRange.Font.Bold = msoTrue
+        .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = RGB(255, 255, 255)
+        .TextFrame2.VerticalAnchor = msoAnchorMiddle
+    End With
+    
+    ' Penjelasan Perbandingan Terbalik
+    y = y + 45
+    Set shp = ws.Shapes.AddShape(msoShapeRectangle, 50, y, 600, 80)
+    With shp
+        .Fill.ForeColor.RGB = RGB(255, 235, 238)
+        .Line.Weight = 2
+        .Line.ForeColor.RGB = RGB(231, 76, 60)
+        .TextFrame2.TextRange.Text = "Definisi: Dua besaran dikatakan terbalik jika hasil kalinya tetap." & vbLf & vbLf & _
+                                     "Rumus: A₁ × B₁ = A₂ × B₂" & vbLf & vbLf & _
+                                     "Contoh: Semakin banyak pekerja, semakin cepat selesai"
+        .TextFrame2.TextRange.Font.Size = 11
+        .TextFrame2.TextRange.ParagraphFormat.LeftIndent = 10
+        .TextFrame2.VerticalAnchor = msoAnchorMiddle
+    End With
+    
+    ' Contoh Soal Perbandingan Terbalik
+    y = y + 90
+    Set shp = ws.Shapes.AddShape(msoShapeRoundedRectangle, 50, y, 600, 100)
+    With shp
+        .Fill.ForeColor.RGB = RGB(255, 249, 196)
+        .Line.Weight = 2
+        .Line.ForeColor.RGB = RGB(255, 193, 7)
+        .TextFrame2.TextRange.Text = "CONTOH SOAL:" & vbLf & _
+                                     "Jika 4 orang dapat menyelesaikan pekerjaan dalam 6 hari," & vbLf & _
+                                     "berapa hari waktu yang dibutuhkan jika dikerjakan 8 orang?" & vbLf & vbLf & _
+                                     "Penyelesaian: (4 × 6) / 8 = 3 hari"
+        .TextFrame2.TextRange.Font.Size = 11
+        .TextFrame2.TextRange.ParagraphFormat.LeftIndent = 10
+        .TextFrame2.VerticalAnchor = msoAnchorMiddle
+    End With
+    
+    ' Tombol Latihan Terbalik
+    y = y + 110
+    Set shp = ws.Shapes.AddShape(msoShapeRoundedRectangle, 50, y, 200, 40)
+    With shp
+        .Name = "BtnLatihanTerbalik"
+        .Fill.ForeColor.RGB = RGB(231, 76, 60)
+        .Line.Visible = msoFalse
+        .TextFrame2.TextRange.Text = "LATIHAN TERBALIK"
+        .TextFrame2.TextRange.Font.Size = 12
+        .TextFrame2.TextRange.Font.Bold = msoTrue
+        .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = RGB(255, 255, 255)
+        .TextFrame2.VerticalAnchor = msoAnchorMiddle
+        .TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignCenter
+        .OnAction = "LatihanTerbalik"
+    End With
+    
+    MsgBox "Media pembelajaran berhasil dibuat!" & vbLf & vbLf & _
+           "Klik tombol LATIHAN untuk mengerjakan soal interaktif.", vbInformation, "Berhasil"
+End Sub
+
+' ===== LATIHAN PERBANDINGAN SENILAI =====
+Sub LatihanSenilai()
+    Dim nilai1 As Integer, nilai2 As Integer, nilai3 As Integer
+    Dim jawaban As Variant, hasil As Double
+    
+    ' Generate soal random
+    nilai1 = Application.WorksheetFunction.RandBetween(2, 5)
+    nilai2 = Application.WorksheetFunction.RandBetween(20, 50) * 1000
+    nilai3 = Application.WorksheetFunction.RandBetween(6, 10)
+    
+    hasil = (nilai3 * nilai2) / nilai1
+    
+    ' Tampilkan soal
+    jawaban = InputBox("SOAL PERBANDINGAN SENILAI" & vbLf & vbLf & _
+                      "Jika " & nilai1 & " kg beras harganya Rp " & Format(nilai2, "#,##0") & "," & vbLf & _
+                      "berapa harga " & nilai3 & " kg beras?" & vbLf & vbLf & _
+                      "Masukkan jawaban (dalam rupiah, angka saja):", _
+                      "Latihan Perbandingan Senilai")
+    
+    ' Cek jawaban
+    If jawaban = "" Then Exit Sub
+    
+    If Val(jawaban) = hasil Then
+        MsgBox "BENAR! " & Chr(10004) & vbLf & vbLf & _
+               "Jawaban Anda: Rp " & Format(Val(jawaban), "#,##0") & vbLf & _
+               "Penjelasan: " & nilai3 & " × " & Format(nilai2, "#,##0") & " ÷ " & nilai1 & _
+               " = Rp " & Format(hasil, "#,##0"), vbInformation, "Hasil"
+    Else
+        MsgBox "SALAH! " & Chr(10006) & vbLf & vbLf & _
+               "Jawaban Anda: Rp " & Format(Val(jawaban), "#,##0") & vbLf & _
+               "Jawaban yang benar: Rp " & Format(hasil, "#,##0") & vbLf & vbLf & _
+               "Penjelasan: " & nilai3 & " × " & Format(nilai2, "#,##0") & " ÷ " & nilai1 & _
+               " = Rp " & Format(hasil, "#,##0"), vbExclamation, "Hasil"
+    End If
+    
+    ' Tanya mau latihan lagi
+    If MsgBox("Mau latihan soal lagi?", vbYesNo + vbQuestion, "Latihan Lagi?") = vbYes Then
+        LatihanSenilai
+    End If
+End Sub
+
+' ===== LATIHAN PERBANDINGAN TERBALIK =====
+Sub LatihanTerbalik()
+    Dim pekerja1 As Integer, hari1 As Integer, pekerja2 As Integer
+    Dim jawaban As Variant, hasil As Double
+    
+    ' Generate soal random
+    pekerja1 = Application.WorksheetFunction.RandBetween(3, 6)
+    hari1 = Application.WorksheetFunction.RandBetween(8, 15)
+    pekerja2 = Application.WorksheetFunction.RandBetween(8, 12)
+    
+    hasil = (pekerja1 * hari1) / pekerja2
+    
+    ' Tampilkan soal
+    jawaban = InputBox("SOAL PERBANDINGAN TERBALIK" & vbLf & vbLf & _
+                      "Jika " & pekerja1 & " orang dapat menyelesaikan pekerjaan dalam " & hari1 & " hari," & vbLf & _
+                      "berapa hari waktu yang dibutuhkan jika dikerjakan " & pekerja2 & " orang?" & vbLf & vbLf & _
+                      "Masukkan jawaban (dalam hari):", _
+                      "Latihan Perbandingan Terbalik")
+    
+    ' Cek jawaban
+    If jawaban = "" Then Exit Sub
+    
+    If Val(jawaban) = hasil Then
+        MsgBox "BENAR! " & Chr(10004) & vbLf & vbLf & _
+               "Jawaban Anda: " & Val(jawaban) & " hari" & vbLf & _
+               "Penjelasan: (" & pekerja1 & " × " & hari1 & ") ÷ " & pekerja2 & _
+               " = " & hasil & " hari", vbInformation, "Hasil"
+    Else
+        MsgBox "SALAH! " & Chr(10006) & vbLf & vbLf & _
+               "Jawaban Anda: " & Val(jawaban) & " hari" & vbLf & _
+               "Jawaban yang benar: " & hasil & " hari" & vbLf & vbLf & _
+               "Penjelasan: (" & pekerja1 & " × " & hari1 & ") ÷ " & pekerja2 & _
+               " = " & hasil & " hari", vbExclamation, "Hasil"
+    End If
+    
+    ' Tanya mau latihan lagi
+    If MsgBox("Mau latihan soal lagi?", vbYesNo + vbQuestion, "Latihan Lagi?") = vbYes Then
+        LatihanTerbalik
+    End If
+End Sub
+    ''')
 #==================================================
 
 if st.session_state.kondisi['kondisi1']:
@@ -551,65 +792,74 @@ if st.session_state.kondisi['kondisi8']:
     materi7()
 if st.session_state.kondisi['kondisi9']:
     materi8()
+if st.session_state.kondisi['kondisi10']:
+    materi9()
 #==================================================
 
 if st.sidebar.button('Beranda'):
     st.session_state['kondisi']={'kondisi1':True,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
     st.rerun()
     
 if st.sidebar.button('pengantar'):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':True,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
     st.rerun()
 
 if st.sidebar.button("Class VBA for Excel"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':True, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
     st.rerun()
 st.sidebar.markdown("---")
+st.sidebar.markdown("Kumpulan media dari generatif AI")
 if st.sidebar.button("Luas Persegi Panjang AI"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':True, 'kondisi9':False}
+                                 'kondisi8':True, 'kondisi9':False, 'kondisi10':False}
     st.rerun()
 if st.sidebar.button("Deret Aritmatika"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':True}
+                                 'kondisi8':False, 'kondisi9':True, 'kondisi10':False}
+    st.rerun()
+if st.sidebar.button("Perbandingan Senilai dan Terbalik"):
+    st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
+                                 'kondisi3':False,'kondisi4':False,
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':True}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button("Kalkulator Sederhana"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':True,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
     st.rerun()
 if st.sidebar.button("Pecahan Sederhana"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':True, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
     st.rerun()
 if st.sidebar.button("Dimensi 3"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':True,
-                                 'kondisi8':False, 'kondisi9':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
     st.rerun()
 if st.sidebar.button("Lihat Media Hasil Diskusi"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':True,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
     st.rerun()
 
 st.subheader("Ruang Diskusi")
