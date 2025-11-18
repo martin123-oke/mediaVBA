@@ -7,7 +7,8 @@ if 'kondisi' not in st.session_state:
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False,
                                  'kondisi7':False, 'kondisi8':False,
-                                 'kondisi9':False, 'kondisi10': False}
+                                 'kondisi9':False, 'kondisi10': False,
+                                 'kondisi11':False, 'kondisi12':False}
 
 def kover():
     st.markdown('''
@@ -772,6 +773,451 @@ Sub LatihanTerbalik()
     End If
 End Sub
     ''')
+def materi10():
+    st.markdown('''<div style="font-size:30px;font-family:'bauhaus 93';font-weight:bold;text-align:center">Suara ketik tombol di tekan</div>''',unsafe_allow_html=True)
+    st.markdown('''
+                <iframe src="https://res.cloudinary.com/ikip-siliwangi/image/upload/v1763375805/tombol_suara_ysju4x.png" style="width:100%; height:400px"></iframe>
+                ''',unsafe_allow_html=True)
+    st.code("""
+' Memanggil fungsi PlaySound dari Windows API
+Declare PtrSafe Function PlaySound Lib "winmm.dll" Alias "PlaySoundA" ( _
+    ByVal lpszName As String, _
+    ByVal hModule As LongPtr, _
+    ByVal dwFlags As Long) As Long
+Public Sub Tombol_Bunyi()
+    Dim fileSuara As String
+    
+    ' Lokasi file suara
+    fileSuara = "C:\\Users\\IKIP SILIWANGI\\Desktop\\Media\\Bananas\\sounds\\Bite.wav"
+    
+    ' Play suara
+    PlaySound fileSuara, 0, &H1
+End Sub
+    
+    """)
+    st.markdown('''<div style="font-size:20px;font-family:'broadway';font-weight:bold">Hentikan Suara</div>''',unsafe_allow_html=True)
+    st.code('''
+PlaySound vbNullString, 0, 0
+PlaySound fileSuara, 0, &H1
+    ''')
+    st.markdown('''<div style="font-size:20px;font-family:'broadway';font-weight:bold">Membuat Banyak Tombol</div>''',unsafe_allow_html=True)
+    st.code('''
+Public Sub Bunyi_A()
+    PlaySound "C:\suara\a.wav", 0, &H1
+End Sub
+
+Public Sub Bunyi_B()
+    PlaySound "C:\suara\b.wav", 0, &H1
+End Sub
+
+''')
+
+def materi11():
+    kolom = st.tabs(['Koding Animasi','Bola Pantul','Bola Lompat','Solusi yang paling stabil','Teknik Animasi', 'Teknik Animasi Class'])
+    with kolom[0]:
+        st.markdown('''<div style="font-size:30px;font-family:'bauhaus 93';font-weight:bold;text-align:center">Konsep Animasi</div>''',unsafe_allow_html=True)
+        st.markdown('''
+                <iframe src="https://res.cloudinary.com/ikip-siliwangi/image/upload/v1763426601/animasi_atxnfw.png" style="width:100%; height:400px"></iframe>
+                ''',unsafe_allow_html=True)
+        st.code("""
+Dim GerakAktif As Boolean
+Dim Arah As Integer
+
+Sub MulaiAnimasi()
+    GerakAktif = True
+    Arah = 1      ' 1 = kanan, -1 = kiri
+    Call Animasi
+End Sub
+
+Sub StopAnimasi()
+    GerakAktif = False
+End Sub
+
+Sub Animasi()
+    On Error Resume Next
+    Dim shp As Shape
+    Set shp = Sheets("Sheet1").Shapes("Bola")
+
+    Do While GerakAktif
+        shp.Left = shp.Left + (10 * Arah)
+
+        ' Batas kanan
+        If shp.Left > 400 Then
+            Arah = -1
+        End If
+
+        ' Batas kiri
+        If shp.Left < 20 Then
+            Arah = 1
+        End If
+
+        DoEvents
+        Application.Wait (Now + TimeValue("0:00:01"))
+    Loop
+End Sub
+""")
+    with kolom[1]:
+        st.markdown('''<div style="font-size:30px;font-family:'bauhaus 93';font-weight:bold;text-align:center">Bola Pantul</div>''',unsafe_allow_html=True)
+        st.markdown('''
+                <iframe src="https://res.cloudinary.com/ikip-siliwangi/image/upload/v1763428400/pantulan_v9m7q7.png" style="width:100%; height:400px"></iframe>
+                ''',unsafe_allow_html=True)
+        st.code("""
+Dim aktifDiagonal As Boolean
+Dim dx As Single, dy As Single
+
+Sub MulaiDiagonal()
+    aktifDiagonal = True
+    dx = 0.2   ' Gerak horizontal
+    dy = 0.2   ' Gerak vertikal
+    Call AnimasiDiagonal
+End Sub
+
+Sub StopDiagonal()
+    aktifDiagonal = False
+End Sub
+
+Sub AnimasiDiagonal()
+    On Error Resume Next
+    Dim shp As Shape
+    Set shp = Sheets("Sheet1").Shapes("Bola")
+
+    Do While aktifDiagonal
+        shp.Left = shp.Left + dx
+        shp.Top = shp.Top + dy
+
+        ' Batas kanan/kiri
+        If shp.Left < 10 Or shp.Left > 400 Then dx = -dx
+
+        ' Batas atas/bawah
+        If shp.Top < 10 Or shp.Top > 250 Then dy = -dy
+
+        DoEvents
+        Application.Wait Now + TimeValue("0:00:00.05")
+    Loop
+End Sub
+""")
+    with kolom[2]:
+        st.markdown('''<div style="font-size:30px;font-family:'bauhaus 93';font-weight:bold;text-align:center">Bola Lompat</div>''',unsafe_allow_html=True)
+        st.markdown('''
+                <iframe src="https://res.cloudinary.com/ikip-siliwangi/image/upload/v1763430281/lompatan_cfpqza.png" style="width:100%; height:400px"></iframe>
+                ''',unsafe_allow_html=True)
+        st.code("""
+Dim aktifLoncat As Boolean
+Dim kecepatan As Double
+Dim lastFrame As Double
+
+Sub MulaiLoncat()
+    aktifLoncat = True
+    kecepatan = -12          ' awal lompatan ke atas
+    lastFrame = Timer
+    Call AnimasiLoncat
+End Sub
+
+Sub StopLoncat()
+    aktifLoncat = False
+End Sub
+
+Sub AnimasiLoncat()
+    Dim shp As Shape
+    Dim gravitasi As Double: gravitasi = 0.6     ' gravitasi lebih kecil = halus
+    Set shp = Sheets("Sheet1").Shapes("Bola")
+
+    Do While aktifLoncat
+        
+        ' FRAME RATE ~10 ms (0.01 detik)
+        If Timer - lastFrame >= 0.01 Then
+        
+            ' update posisi vertikal
+            shp.Top = shp.Top + kecepatan
+            kecepatan = kecepatan + gravitasi
+
+            ' Lantai
+            If shp.Top > 250 Then
+                shp.Top = 250
+                kecepatan = -Abs(kecepatan) * 0.85   ' mantul sedikit
+            End If
+
+            lastFrame = Timer
+        End If
+        
+        DoEvents
+    Loop
+End Sub
+""")
+    with kolom[3]:
+        st.markdown('''<div style="font-size:30px;font-family:'bauhaus 93';font-weight:bold;text-align:center">Catatan</div>''',unsafe_allow_html=True)
+        st.subheader("Gunakan DoEvents + Loop tanpa Wait")
+        st.write("Ini cara yang paling sering digunakan di animasi VBA.")
+        st.write("Contoh pengganti TimeValue:")
+        st.code('''
+Dim t As Double
+t = Timer
+
+Do While aktif
+    If Timer - t > 0.01 Then          ' 0.01 detik = 10 milidetik
+        shp.Left = shp.Left + 5
+        t = Timer
+    End If
+
+    DoEvents
+Loop
+
+''')
+        st.markdown('''
+Keunggulan:
+- lebih halus,
+- lebih cepat,
+- tergantung CPU, bukan Excel Wait,
+- delay bisa diatur hingga 1 milidetik.
+''')
+        st.subheader("Contoh Animasi Gerak Cepat Tanpa Wait")
+        st.write("Ini versi yang geraknya halus 100%:")
+        st.code("""
+Sub AnimasiHalus()
+    aktif = True
+
+    Dim shp As Shape
+    Set shp = Sheets("Sheet1").Shapes("Bola")
+
+    Do While aktif
+        shp.Left = shp.Left + 2
+        
+        If shp.Left > 400 Then shp.Left = 10
+        
+        DoEvents
+    Loop
+End Sub
+
+""")
+    with kolom[4]:
+        st.markdown('''<div style="font-size:30px;font-family:'bauhaus 93';font-weight:bold;text-align:center">Teknik Animasi</div>''',unsafe_allow_html=True)
+        st.subheader("Deklarasi API (WAJIB)")
+        st.write("Masukkan ini di bagian paling atas Module:")
+        st.code('''
+' --- API Windows untuk Timer Presisi ---
+Declare PtrSafe Function QueryPerformanceCounter Lib "kernel32" (lpPerformanceCount As Currency) As Long
+Declare PtrSafe Function QueryPerformanceFrequency Lib "kernel32" (lpFrequency As Currency) As Long
+''')
+        st.write("Currency digunakan karena aman 64 bit dan akurat sampai mikrodetik.")
+        st.subheader("Variabel Global")
+        st.code('''
+Dim aktifGame As Boolean
+Dim frameRate As Double
+Dim freq As Currency
+Dim lastTime As Currency
+
+''')
+        st.subheader("Setup Animasi (Mengambil Frekuensi Mikrodetik)")
+        st.code('''
+Sub MulaiGame()
+    aktifGame = True
+
+    ' ambil frekuensi hardware timer
+    QueryPerformanceFrequency freq
+    QueryPerformanceCounter lastTime
+
+    frameRate = 1 / 120     ' target 120 FPS (super halus)
+
+    Call AnimasiGame
+End Sub
+
+Sub StopGame()
+    aktifGame = False
+End Sub
+''')
+        st.markdown('''
+Anda bisa mengubah target FPS:
+- 1/60 → 60 FPS,
+- 1/120 → 120 FPS (sangat halus),
+- 1/240 → 240 FPS (super smooth)
+''')
+        st.subheader("Animasi Per Frame (Teknik Game Engine)")
+        st.write("Contoh ini: shape bergerak diagonal super halus seperti bola melayang.")
+        st.code("""
+Sub AnimasiGame()
+    Dim shp As Shape
+    Set shp = Sheets("Sheet1").Shapes("Bola")
+
+    Dim current As Currency
+    Dim delta As Double
+    Dim xSpeed As Double: xSpeed = 200     ' pixel per detik
+    Dim ySpeed As Double: ySpeed = 140     ' pixel per detik
+
+    QueryPerformanceCounter lastTime
+
+    Do While aktifGame
+
+        ' waktu frame sekarang
+        QueryPerformanceCounter current
+
+        ' konversi ke detik yang presisi
+        delta = (current - lastTime) / freq
+       
+        If delta >= frameRate Then
+            
+            ' --- Update physics ---
+            shp.Left = shp.Left + (xSpeed * delta)
+            shp.Top = shp.Top + (ySpeed * delta)
+            
+            ' --- Pantulan batas ---
+            If shp.Left < 10 Or shp.Left > 400 Then xSpeed = -xSpeed
+            If shp.Top < 10 Or shp.Top > 250 Then ySpeed = -ySpeed
+
+            ' simpan waktu frame terakhir
+            lastTime = current
+        End If
+        
+        DoEvents
+    Loop
+End Sub
+""")
+        st.subheader("Kenapa Versi Ini Paling Halus?")
+        st.markdown("""
+<div>
+<pre>
+✔ Menggunakan timer hardware CPU
+
+Akurasi sampai 0.000001 detik (microsecond).
+
+✔ Bisa menentukan target FPS secara presisi
+
+Anda bisa buat:
+
+30 FPS
+
+60 FPS
+
+120 FPS
+
+500 FPS
+
+✔ Animasi berbasis delta time seperti Unity / Unreal Engine
+
+Kecil-besar FPS tidak mempengaruhi kecepatan animasi.
+
+✔ Sangat stabil (tidak patah-patah)
+
+Tidak seperti:
+
+Wait
+
+Sleep
+
+Timer
+</pre>
+</div>
+""", unsafe_allow_html=True)
+    with kolom[5]:
+        st.markdown('''<div style="font-size:30px;font-family:'bauhaus 93';font-weight:bold;text-align:center">Teknik Animasi Multitimer</div>''',unsafe_allow_html=True)
+        st.subheader("1. Deklarasi API (WAJIB, paling atas Module)")
+        st.code('''
+' ==== API TIMER PRESISI TERTINGGI ====
+Declare PtrSafe Function QueryPerformanceCounter Lib "kernel32" (lpPerformanceCount As Currency) As Long
+Declare PtrSafe Function QueryPerformanceFrequency Lib "kernel32" (lpFrequency As Currency) As Long
+''')
+        st.subheader("2. Variabel Global Multi-Timer")
+        st.code('''
+Dim aktifGame As Boolean
+Dim freq As Currency
+
+Dim timers As New Collection ' berisi semua animasi paralel
+''')
+        st.subheader("3. Template Class Module: cTimer")
+        st.code('''
+' ======== CLASS: cTimer ========
+Public shp As Shape
+Public velX As Double
+Public velY As Double
+Public lastTime As Currency
+
+Public Sub Update(dt As Double)
+    shp.Left = shp.Left + velX * dt
+    shp.Top = shp.Top + velY * dt
+    
+    ' pantulan
+    If shp.Left < 10 Or shp.Left > 400 Then velX = -velX
+    If shp.Top < 10 Or shp.Top > 260 Then velY = -velY
+End Sub
+''')
+        st.write("Class ini berfungsi sebagai mini-game object dengan kecepatan sendiri.")
+        st.subheader("4. Membuat Banyak Shape Dengan Timer Sendiri")
+        st.code('''
+Sub TambahShape(x As Double, y As Double, vx As Double, vy As Double)
+    Dim t As cTimer
+    Set t = New cTimer
+
+    Set t.shp = Sheets("Sheet1").Shapes.AddShape(msoShapeOval, x, y, 30, 30)
+    t.shp.Fill.ForeColor.RGB = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))
+
+    t.velX = vx
+    t.velY = vy
+
+    QueryPerformanceCounter t.lastTime
+
+    timers.Add t
+End Sub
+''')
+        st.subheader("5. Setup Multi-Object")
+        st.code('''
+Sub MulaiGame()
+    Dim i As Long
+    aktifGame = True
+    
+    QueryPerformanceFrequency freq
+    
+    Randomize
+    
+    timers = New Collection
+    
+    ' buat 8 bola animasi paralel
+    For i = 1 To 8
+        Call TambahShape(50 * i, 50, (Rnd * 240) - 120, (Rnd * 240) - 120)
+    Next i
+    
+    Call EngineLoop
+End Sub
+''')
+        st.subheader("Engine Utama (Multi Timer Loop) → PALING HALUS")
+        st.code('''
+Sub EngineLoop()
+    Dim current As Currency
+    Dim dt As Double
+    Dim t As cTimer
+
+    Do While aktifGame
+        
+        For Each t In timers
+            QueryPerformanceCounter current
+            
+            dt = (current - t.lastTime) / freq   ' waktu per objek
+            
+            ' update objek
+            Call t.Update(dt)
+            
+            t.lastTime = current
+        Next t
+        
+        DoEvents
+    Loop
+End Sub
+''')
+        st.subheader("7. Stop Game")
+        st.code('''
+Sub StopGame()
+    aktifGame = False
+End Sub
+''')
+        data={'Fitur':['Per-shape timer', 'DeltaTime realtime',
+                       'QueryPerformanceCounter','Tidak ada jeda manual (Wait)',
+                       'Bisa ratusan objek'],
+              'Keterangan':['Setiap objek punya waktu sendiri → super smooth',
+                            'Tidak tergantung FPS → gerak selalu stabil',
+                            'Presisi mikrodetik, lebih baik dari Application.OnTime dan Wait',
+                            'Engine terus mengalir seperti game engine',
+                            'Karena tidak delay blocking']}
+        st.table(data)
+        
+       
 #==================================================
 
 if st.session_state.kondisi['kondisi1']:
@@ -794,27 +1240,49 @@ if st.session_state.kondisi['kondisi9']:
     materi8()
 if st.session_state.kondisi['kondisi10']:
     materi9()
+if st.session_state.kondisi['kondisi11']:
+    materi10()
+if st.session_state.kondisi['kondisi12']:
+    materi11()
 #==================================================
 
+st.sidebar.markdown("Teori dan Aplikasi")
 if st.sidebar.button('Beranda'):
     st.session_state['kondisi']={'kondisi1':True,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False}
     st.rerun()
     
 if st.sidebar.button('pengantar'):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':True,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False}
     st.rerun()
 
 if st.sidebar.button("Class VBA for Excel"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':True, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False}
+    st.rerun()
+if st.sidebar.button("Suara Tombol VBA for Excel"):
+    st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
+                                 'kondisi3':False,'kondisi4':False,
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':True, 'kondisi12':False}
+    st.rerun()
+if st.sidebar.button("Konsep Animasi VBA for Excel"):
+    st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
+                                 'kondisi3':False,'kondisi4':False,
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':True}
     st.rerun()
 st.sidebar.markdown("---")
 st.sidebar.markdown("Kumpulan media dari generatif AI")
@@ -822,44 +1290,51 @@ if st.sidebar.button("Luas Persegi Panjang AI"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':True, 'kondisi9':False, 'kondisi10':False}
+                                 'kondisi8':True, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False}
     st.rerun()
 if st.sidebar.button("Deret Aritmatika"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':True, 'kondisi10':False}
+                                 'kondisi8':False, 'kondisi9':True, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False}
     st.rerun()
 if st.sidebar.button("Perbandingan Senilai dan Terbalik"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':True}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':True,
+                                 'kondisi11':False, 'kondisi12':False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button("Kalkulator Sederhana"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':True,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False}
     st.rerun()
 if st.sidebar.button("Pecahan Sederhana"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':True, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False}
     st.rerun()
 if st.sidebar.button("Dimensi 3"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':True,
-                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False}
     st.rerun()
 if st.sidebar.button("Lihat Media Hasil Diskusi"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':True,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
-                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False}
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False}
     st.rerun()
 
 st.subheader("Ruang Diskusi")
