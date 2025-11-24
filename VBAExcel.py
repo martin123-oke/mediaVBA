@@ -8,7 +8,9 @@ if 'kondisi' not in st.session_state:
                                  'kondisi5':False, 'kondisi6':False,
                                  'kondisi7':False, 'kondisi8':False,
                                  'kondisi9':False, 'kondisi10': False,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False,
+                                 'kondisi13':False,'kondisi14':False,
+                                 'kondisi15':False}
 
 def kover():
     st.markdown('''
@@ -1217,7 +1219,87 @@ End Sub
                             'Karena tidak delay blocking']}
         st.table(data)
         
-       
+def materi12():
+    st.subheader("Pertemuan 2 mobil")
+    st.markdown("<iframe src='https://res.cloudinary.com/ikip-siliwangi/image/upload/v1763949131/pertemuanMobil_moitbn.png' style='width:100%;height:300px'></iframe>",unsafe_allow_html=True)
+    st.code('''
+Sub masukan()
+On Error Resume Next
+Dim lembar As Worksheet
+
+Set lembar = Worksheets(1)
+a = InputBox("Masukan Jarak")
+lembar.Shapes("jarak").TextFrame2.TextRange.Text = "Jarak: " & a
+End Sub
+Sub masukan1()
+On Error Resume Next
+Dim lembar As Worksheet
+
+Set lembar = Worksheets(1)
+a = InputBox("Masukan Kecepatan Mobil 1")
+lembar.Shapes("kecepatan1").TextFrame2.TextRange.Text = "Masukan Kecepatan Mobil 1: " & a
+End Sub
+Sub masukan2()
+On Error Resume Next
+Dim lembar As Worksheet
+
+Set lembar = Worksheets(1)
+a = InputBox("Masukan Kecepatan Mobil 1")
+lembar.Shapes("kecepatan2").TextFrame2.TextRange.Text = "Masukan Kecepatan Mobil 2: " & a
+End Sub
+Sub jalankan()
+On Error Resume Next
+Dim lembar As Worksheet
+Dim waktu As Double
+
+Set lembar = Worksheets(1)
+posisix1 = lembar.Shapes("mobil1").Left + lembar.Shapes("mobil1").Width
+posisiy1 = lembar.Shapes("mobil1").Top
+posisix2 = lembar.Shapes("mobil2").Left
+posisiy2 = lembar.Shapes("mobil2").Top
+
+jarak1 = Int(lembar.Shapes("pemandangan").Width) - Int(lembar.Shapes("mobil1").Width)
+waktu = Timer
+aktif = True
+wak = 0
+ MsgBox jarak1
+jarak = Split(lembar.Shapes("jarak").TextFrame2.TextRange.Text, ":")(1)
+v1 = Split(lembar.Shapes("kecepatan1").TextFrame2.TextRange.Text, ":")(1)
+v2 = Split(lembar.Shapes("kecepatan2").TextFrame2.TextRange.Text, ":")(1)
+waktu1 = Int(jarak) / (Int(v1) + Int(v2))
+
+Do While aktif
+    If Timer - t > 0.01 Then         ' 0.01 detik = 10 milidetik
+        wak = wak + 0.1
+        lembar.Shapes("mobil1").Left = Int(v1) * wak * jarak1 / jarak
+        lembar.Shapes("mobil2").Left = jarak1 - Int(v2) * wak * jarak1 / jarak
+        If wak > waktu1 Then
+            aktif = False
+        End If
+        lembar.Shapes("waktu").TextFrame2.TextRange.Text = "waktu: " & wak
+        t = Timer
+    End If
+    DoEvents
+Loop
+End Sub
+Sub awal_lagi()
+On Error Resume Next
+Dim lembar As Worksheet
+
+Set lembar = Worksheets(1)
+lembar.Shapes("mobil1").Left = 0
+lembar.Shapes("mobil2").Left = lembar.Shapes("pemandangan").Left + lembar.Shapes("pemandangan").Width - lembar.Shapes("mobil2").Width
+lembar.Shapes("waktu").TextFrame2.TextRange.Text = "waktu: 0"
+End Sub
+    ''')
+def materi13():
+    st.markdown('''
+                <iframe src="https://martin-bernard26.github.io/projek1/kursus.html" style="width:100%; height:4000px"></iframe>
+            ''',unsafe_allow_html=True)
+def materi14():
+    st.markdown('''
+                <iframe src="https://martin-bernard26.github.io/projek1/soalUTS.html" style="width:100%; height:4000px"></iframe>
+            ''',unsafe_allow_html=True)
 #==================================================
 
 if st.session_state.kondisi['kondisi1']:
@@ -1244,6 +1326,12 @@ if st.session_state.kondisi['kondisi11']:
     materi10()
 if st.session_state.kondisi['kondisi12']:
     materi11()
+if st.session_state.kondisi['kondisi13']:
+    materi12()
+if st.session_state.kondisi['kondisi14']:
+    materi13()
+if st.session_state.kondisi['kondisi15']:
+    materi14()
 #==================================================
 
 st.sidebar.markdown("Teori dan Aplikasi")
@@ -1252,7 +1340,8 @@ if st.sidebar.button('Beranda'):
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False, 'kondisi15':False}
     st.rerun()
     
 if st.sidebar.button('pengantar'):
@@ -1260,7 +1349,8 @@ if st.sidebar.button('pengantar'):
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False, 'kondisi13':False,
+                                 'kondisi14':False, 'kondisi15':False}
     st.rerun()
 
 if st.sidebar.button("Class VBA for Excel"):
@@ -1268,21 +1358,24 @@ if st.sidebar.button("Class VBA for Excel"):
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':True, 'kondisi7':False,
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':False}
     st.rerun()
 if st.sidebar.button("Suara Tombol VBA for Excel"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
-                                 'kondisi11':True, 'kondisi12':False}
+                                 'kondisi11':True, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':False}
     st.rerun()
 if st.sidebar.button("Konsep Animasi VBA for Excel"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
-                                 'kondisi11':False, 'kondisi12':True}
+                                 'kondisi11':False, 'kondisi12':True,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':False}
     st.rerun()
 st.sidebar.markdown("---")
 st.sidebar.markdown("Kumpulan media dari generatif AI")
@@ -1291,21 +1384,24 @@ if st.sidebar.button("Luas Persegi Panjang AI"):
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
                                  'kondisi8':True, 'kondisi9':False, 'kondisi10':False,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':False}
     st.rerun()
 if st.sidebar.button("Deret Aritmatika"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
                                  'kondisi8':False, 'kondisi9':True, 'kondisi10':False,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':False}
     st.rerun()
 if st.sidebar.button("Perbandingan Senilai dan Terbalik"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':True,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button("Kalkulator Sederhana"):
@@ -1313,31 +1409,60 @@ if st.sidebar.button("Kalkulator Sederhana"):
                                  'kondisi3':True,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':False}
     st.rerun()
 if st.sidebar.button("Pecahan Sederhana"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':True, 'kondisi6':False, 'kondisi7':False,
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':False}
     st.rerun()
 if st.sidebar.button("Dimensi 3"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':False,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':True,
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':False}
+    st.rerun()
+if st.sidebar.button("Pertemuan 2 Mobil"):
+    st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
+                                 'kondisi3':False,'kondisi4':False,
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':True,
+                                 'kondisi14':False,'kondisi15':False}
     st.rerun()
 if st.sidebar.button("Lihat Media Hasil Diskusi"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
                                  'kondisi3':False,'kondisi4':True,
                                  'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
-                                 'kondisi11':False, 'kondisi12':False}
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':False}
     st.rerun()
-
+st.sidebar.markdown("---")
+if st.sidebar.button("Kursus Media Pembelajaran berbasis Digital"):
+    st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
+                                 'kondisi3':False,'kondisi4':False,
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':True,'kondisi15':False}
+    st.rerun()
+if st.sidebar.button("Soal UTS"):
+    st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
+                                 'kondisi3':False,'kondisi4':False,
+                                 'kondisi5':False, 'kondisi6':False, 'kondisi7':False,
+                                 'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
+                                 'kondisi11':False, 'kondisi12':False,'kondisi13':False,
+                                 'kondisi14':False,'kondisi15':True}
+    st.rerun()
+st.sidebar.markdown("---")
 st.subheader("Ruang Diskusi")
 st.markdown('''
-                <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:3000px"></iframe>
+                <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:4000px"></iframe>
             ''',unsafe_allow_html=True)
