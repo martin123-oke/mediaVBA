@@ -1443,7 +1443,8 @@ if st.sidebar.button("Konsep Subtitusi"):
                                  'kondisi8':False, 'kondisi9':False, 'kondisi10':False,
                                  'kondisi11':False, 'kondisi12':False,'kondisi13':False,
                                  'kondisi14':False,'kondisi15':False,'kondisi16':False,
-                                 'kondisi17':True, 'kondisi18':False, 'kondisi19':False}
+                                 'kondisi17':True, 'kondisi18':False, 'kondisi19':False,
+                                 'kondisi20':False}
     st.rerun()
 if st.sidebar.button("ReGex VBA for Excel"):
     st.session_state['kondisi']={'kondisi1':False,'kondisi2':False,
@@ -1584,3 +1585,4 @@ st.subheader("Ruang Diskusi")
 st.markdown('''
                 <iframe src="https://martin123-oke.github.io/media/diskusi1.html" style="width:100%; height:6500px"></iframe>
             ''',unsafe_allow_html=True)
+
